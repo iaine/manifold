@@ -25,6 +25,7 @@ class ManifoldSynth {
     this.voices = [];          // active partial oscillators
     this.seamVoices = [];
     this.armed = false;
+    this.paused = false;
     this.bedDensity = 0.7;
     this.seamDepth = 0.6;
     this._cur = null;          // current payload, for re-voicing
@@ -76,6 +77,11 @@ class ManifoldSynth {
   /* ---- DWELL + CHORD-OF-MANY ---------------------------------------- */
   dwell(payload, isUpdate=false) {
     if (!this.armed) return;
+    // Interacting with the space lifts a pause: a new point can't sound on a
+    // suspended clock. Resume, and let the UI know so its label resyncs.
+    if (this.paused) {
+      this.resume().then(() => { if (this.onResume) this.onResume(); });
+    }
     this._cur = payload;
     const t = this.ctx.currentTime;
     const vec = payload.vector || [];
@@ -184,6 +190,41 @@ class ManifoldSynth {
     this._clearVoices(this.voices, t);
     this._clearVoices(this.seamVoices, t);
     this.voices = []; this.seamVoices = [];
+  }
+
+  /* ---- PAUSE: freeze the held sound in place ---- */
+  /* Suspends the audio clock, so the chord-of-many holds mid-air and resumes
+     exactly where it was. The point you were dwelling on is preserved. */
+  async pause() {
+    if (!this.armed || this.paused) return;
+    if (this.ctx.state === 'running') {
+      await this.ctx.suspend();
+    }
+    this.paused = true;
+  }
+
+  async resume() {
+    if (!this.armed || !this.paused) return;
+    if (this.ctx.state === 'suspended') {
+      await this.ctx.resume();
+    }
+    this.paused = false;
+  }
+
+  async togglePause() {
+    if (this.paused) { await this.resume(); return false; }
+    await this.pause(); return true;
+  }
+
+  /* ---- STOP: silence everything and let go of the point ---- */
+  /* Clears all voices and forgets the current payload, so the space falls
+     silent. Click a point (or navigate) to begin sounding again. If paused,
+     we resume the clock first so the stop actually takes effect. */
+  async stop() {
+    if (!this.armed) return;
+    if (this.paused) { await this.resume(); }
+    this.silence();
+    this._cur = null;
   }
 }
 

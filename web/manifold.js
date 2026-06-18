@@ -225,12 +225,39 @@ map.addEventListener('click', (e) => {
 document.getElementById('vol').oninput = e => synth.setMaster(e.target.value/100);
 document.getElementById('bed-density').oninput = e => synth.setBedDensity(e.target.value/100);
 document.getElementById('seam-depth').oninput = e => synth.setSeamDepth(e.target.value/100);
+
 const armBtn = document.getElementById('audio-arm');
+const pauseBtn = document.getElementById('audio-pause');
+const stopBtn = document.getElementById('audio-stop');
+
 armBtn.onclick = () => {
   synth.arm();
   armBtn.textContent = 'audio live';
   armBtn.classList.add('armed');
+  pauseBtn.disabled = false;
+  stopBtn.disabled = false;
   if (state.held) synth.dwell(state.held);
+};
+
+pauseBtn.onclick = async () => {
+  if (!synth.armed) return;
+  const nowPaused = await synth.togglePause();
+  pauseBtn.textContent = nowPaused ? 'resume' : 'pause';
+  pauseBtn.classList.toggle('paused', nowPaused);
+};
+
+stopBtn.onclick = async () => {
+  if (!synth.armed) return;
+  await synth.stop();
+  // stopping clears the paused state too; reset the pause button
+  pauseBtn.textContent = 'pause';
+  pauseBtn.classList.remove('paused');
+};
+
+// when clicking/navigating the map lifts a pause, resync the button label
+synth.onResume = () => {
+  pauseBtn.textContent = 'pause';
+  pauseBtn.classList.remove('paused');
 };
 
 /* ---- boot: receive the space from Python ---- */

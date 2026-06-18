@@ -90,6 +90,12 @@
   button:hover{border-color:var(--cyan); color:var(--cyan)}
   button.armed{border-color:var(--cyan); color:var(--cyan);
      box-shadow:0 0 12px rgba(95,227,216,.25)}
+  button:disabled{opacity:.35; cursor:default; border-color:var(--ink-faint)}
+  button:disabled:hover{border-color:var(--ink-faint); color:var(--ink)}
+  .transport{display:flex; gap:9px}
+  .transport button{flex:1}
+  button.paused{border-color:var(--amber); color:var(--amber);
+     box-shadow:0 0 12px rgba(232,161,60,.2)}
 
   #boot{position:absolute; inset:0; z-index:10; display:flex;
      align-items:center; justify-content:center; flex-direction:column;
@@ -152,6 +158,10 @@
       <div class="row"><span>bed density</span><input id="bed-density" type="range" min="0" max="100" value="70"></div>
       <div class="row"><span>seam depth</span><input id="seam-depth" type="range" min="0" max="100" value="60"></div>
       <button id="audio-arm">click to enable audio</button>
+      <div class="transport">
+        <button id="audio-pause" disabled>pause</button>
+        <button id="audio-stop" disabled>stop</button>
+      </div>
     </div>
 
     <div class="legend">
