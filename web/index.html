@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MANIFOLD</title>
+<style>
+  /* ---- design tokens -------------------------------------------------
+     Subject: a high-dimensional space that exceeds perception.
+     Palette: deep void blues, a single cold cyan for "the point you hold",
+     a warm amber for the seam (the audio's own terms fighting the space's).
+     Type: a wide-tracked mono for data/labels (instrument readout), a quiet
+     humanist sans for prose. The signature is THE BED: a particle field of
+     uncountable partials behind everything.
+  -------------------------------------------------------------------- */
+  :root{
+    --void-0:#07070e; --void-1:#0c0d18; --void-2:#14162a;
+    --ink:#c9cee0; --ink-dim:#6b7090; --ink-faint:#3a3e57;
+    --cyan:#5fe3d8;      /* the held point / foreground */
+    --amber:#e8a13c;     /* the translation-seam */
+    --violet:#8a6cff;    /* learned axes */
+    --line:#1e2138;
+    --mono:'IBM Plex Mono','SF Mono',ui-monospace,monospace;
+    --sans:'Inter',-apple-system,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--void-0); color:var(--ink); font-family:var(--sans);
+    overflow:hidden; user-select:none;
+  }
+  #app{display:grid; grid-template-columns:1fr 320px; height:100vh}
+
+  /* ---- map (the manifold itself) ---- */
+  #stage{position:relative; overflow:hidden; background:
+     radial-gradient(120% 100% at 50% 40%, var(--void-1), var(--void-0) 75%)}
+  #bed{position:absolute; inset:0; z-index:0}            /* particle bed */
+  #map{position:absolute; inset:0; z-index:1; cursor:crosshair}
+  #overlay{position:absolute; inset:0; z-index:2; pointer-events:none}
+
+  .hud{position:absolute; z-index:3; font-family:var(--mono); font-size:11px;
+       letter-spacing:.08em; color:var(--ink-dim); pointer-events:none}
+  #hud-title{top:22px; left:26px; font-size:13px; color:var(--ink);
+       letter-spacing:.34em; font-weight:600}
+  #hud-sub{top:42px; left:26px; max-width:520px; line-height:1.5;
+       color:var(--ink-faint); letter-spacing:.04em}
+  #hud-dims{bottom:22px; left:26px}
+  #hud-coord{bottom:22px; right:340px; text-align:right}
+
+  /* ---- side panel (the instrument readout) ---- */
+  #panel{background:linear-gradient(var(--void-1),var(--void-0));
+     border-left:1px solid var(--line); padding:24px 22px; overflow-y:auto;
+     display:flex; flex-direction:column; gap:22px}
+  .sect-label{font-family:var(--mono); font-size:10px; letter-spacing:.22em;
+     color:var(--ink-faint); text-transform:uppercase; margin-bottom:9px}
+  .point-name{font-family:var(--mono); font-size:18px; color:var(--cyan);
+     letter-spacing:.04em; word-break:break-all}
+  .readout{font-family:var(--mono); font-size:12px; color:var(--ink-dim);
+     line-height:1.9}
+  .readout b{color:var(--ink); font-weight:500}
+
+  /* chord-of-many meter: a strip of partials, most too dense to count */
+  #chord{height:64px; position:relative; border:1px solid var(--line);
+     background:var(--void-2); border-radius:3px; overflow:hidden}
+  #chord canvas{position:absolute; inset:0; width:100%; height:100%}
+
+  /* seam meter: amber vs space, a divergence bar */
+  #seam{height:10px; border-radius:5px; position:relative; overflow:hidden;
+     background:var(--void-2); border:1px solid var(--line)}
+  #seam>span{position:absolute; top:0; bottom:0; left:50%; width:2px;
+     background:var(--amber); box-shadow:0 0 8px var(--amber)}
+
+  .nearest-row{display:flex; justify-content:space-between;
+     font-family:var(--mono); font-size:12px; padding:5px 0;
+     border-bottom:1px solid var(--line); cursor:pointer; color:var(--ink-dim)}
+  .nearest-row:hover{color:var(--cyan)}
+  .nearest-row .d{color:var(--violet)}
+
+  .controls{display:flex; flex-direction:column; gap:11px}
+  .row{display:flex; align-items:center; justify-content:space-between;
+     font-family:var(--mono); font-size:11px; color:var(--ink-dim);
+     letter-spacing:.06em}
+  input[type=range]{-webkit-appearance:none; height:3px; background:var(--line);
+     border-radius:2px; width:150px}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:12px;
+     height:12px; border-radius:50%; background:var(--cyan); cursor:pointer}
+  button{font-family:var(--mono); font-size:11px; letter-spacing:.1em;
+     background:transparent; color:var(--ink); border:1px solid var(--ink-faint);
+     padding:9px 12px; border-radius:3px; cursor:pointer; transition:.15s}
+  button:hover{border-color:var(--cyan); color:var(--cyan)}
+  button.armed{border-color:var(--cyan); color:var(--cyan);
+     box-shadow:0 0 12px rgba(95,227,216,.25)}
+
+  #boot{position:absolute; inset:0; z-index:10; display:flex;
+     align-items:center; justify-content:center; flex-direction:column;
+     gap:18px; background:var(--void-0); text-align:center}
+  #boot p{color:var(--ink-dim); font-family:var(--mono); font-size:12px;
+     letter-spacing:.1em; max-width:420px; line-height:1.7}
+  .legend{font-family:var(--mono); font-size:10px; color:var(--ink-faint);
+     letter-spacing:.06em; line-height:1.8}
+  .swatch{display:inline-block; width:9px; height:9px; border-radius:2px;
+     margin-right:6px; vertical-align:middle}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="stage">
+    <canvas id="bed"></canvas>
+    <canvas id="map"></canvas>
+    <canvas id="overlay"></canvas>
+    <div id="hud-title" class="hud">M A N I F O L D</div>
+    <div id="hud-sub" class="hud">audio as position · move the cursor to navigate the space · click a point to dwell</div>
+    <div id="hud-dims" class="hud">dims: —</div>
+    <div id="hud-coord" class="hud">—</div>
+    <div id="boot">
+      <div class="point-name" style="color:var(--cyan); letter-spacing:.3em">MANIFOLD</div>
+      <p id="boot-msg">listening for a space…</p>
+      <button id="boot-pick">choose an audio folder</button>
+    </div>
+  </div>
+
+  <div id="panel">
+    <div>
+      <div class="sect-label">dwelling on</div>
+      <div class="point-name" id="p-name">—</div>
+    </div>
+
+    <div>
+      <div class="sect-label">chord of many · <span id="p-dims">0</span> partials</div>
+      <div id="chord"><canvas></canvas></div>
+      <div class="readout" style="margin-top:8px">
+        <b id="p-fg">0</b> foreground · the rest a bed too dense to count
+      </div>
+    </div>
+
+    <div>
+      <div class="sect-label">translation seam</div>
+      <div id="seam"><span id="seam-mark"></span></div>
+      <div class="readout" style="margin-top:8px">
+        the clip's own tuning, bent to the space's learned axes
+      </div>
+    </div>
+
+    <div>
+      <div class="sect-label">distance · nearest by similarity</div>
+      <div id="nearest"></div>
+    </div>
+
+    <div class="controls">
+      <div class="sect-label">instrument</div>
+      <div class="row"><span>master</span><input id="vol" type="range" min="0" max="100" value="55"></div>
+      <div class="row"><span>bed density</span><input id="bed-density" type="range" min="0" max="100" value="70"></div>
+      <div class="row"><span>seam depth</span><input id="seam-depth" type="range" min="0" max="100" value="60"></div>
+      <button id="audio-arm">click to enable audio</button>
+    </div>
+
+    <div class="legend">
+      <div><span class="swatch" style="background:var(--cyan)"></span>held point · foreground</div>
+      <div><span class="swatch" style="background:var(--violet)"></span>learned axes</div>
+      <div><span class="swatch" style="background:var(--amber)"></span>the seam (epistemic compression)</div>
+    </div>
+  </div>
+</div>
+
+<script src="sonify.js"></script>
+<script src="manifold.js"></script>
+</body>
+</html>
