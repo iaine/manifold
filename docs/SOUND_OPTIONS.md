@@ -1,0 +1,133 @@
+# MANIFOLD — Sound Options Guide
+
+This guide covers the controls in the **instrument** panel on the right side of
+the window: how to enable audio, choose a sonification type, mute and unmute
+individual gestures with the gesture mixer, and use the transport controls.
+
+It assumes the app is already running. If you haven't got it running yet, see
+the main `README.md` first.
+
+---
+
+## Quick start
+
+1. Click **enable audio** (browsers require one click before any sound can
+   start).
+2. Click a point on the map. You're now *dwelling* on it — its sound holds.
+3. Move the cursor around the map to *navigate* between points.
+4. Use the controls below to shape what you hear.
+
+---
+
+## The four gestures, and how each is triggered
+
+MANIFOLD doesn't have a single "play" button. Instead, four distinct
+*gestures* sound in response to what you do. They layer rather than replace one
+another — several can sound at once.
+
+| Gesture | How you trigger it | What it represents |
+|---------|--------------------|--------------------|
+| **Chord-of-many** | click a point (and it holds) | every dimension of the point becomes a partial — a few countable foreground tones over a bed too dense to count |
+| **Translation-seam** | sounds automatically while a point is held | the tension between the clip's own spectral tuning and where the space places it — epistemic compression made audible |
+| **Projection-shimmer** | move the cursor between points | the bed re-voices as you navigate, the same point seen from changing angles |
+| **Distance-as-consonance** | click a name in the "nearest by similarity" list | similarity as harmonic interval — near points consonant, far points clashing |
+
+The important thing: **clicking a point** starts the chord and the seam
+together; **moving the cursor** drives the shimmer; **clicking a neighbour
+name** fires a distance ping. The gesture mixer (below) lets you silence any of
+these so you can hear the others in isolation.
+
+---
+
+## Sonification type
+
+The three-button selector labelled **sonification** changes *how* every
+dimension of a point is turned into sound. It changes the timbre of the
+chord-of-many; it does not change which gesture is active.
+
+| Type | What you hear |
+|------|---------------|
+| **additive** | each dimension is a sustained partial — the dense, held chord. The default, and the clearest rendering of "too many dimensions to count." |
+| **granular** | each dimension is a fast retriggering grain — the point becomes a stuttering cloud. Dimensions that define the point more strongly chatter faster. |
+| **spectral** | each dimension is a narrow band of filtered noise — the point becomes a textured resonance rather than a set of pitches. Foreground bands ring clearly; the bed becomes a shimmering wash. |
+
+Switching type **re-voices the point you're currently holding immediately**, so
+you can A/B the same coordinate across all three without re-clicking. The line
+of text beneath the selector describes the current choice.
+
+---
+
+## Gesture mixer (mute toggles)
+
+The **gesture mixer** is a 2×2 grid of four chips: **chord**, **seam**,
+**shimmer**, **distance**. Each one mutes or unmutes its gesture independently.
+
+- A chip that is **lit** (cyan, outlined) means that gesture is **audible**.
+- A chip that is **dimmed and struck through** means that gesture is **muted**.
+- Tap a chip to toggle it.
+
+Because the toggles are independent, any combination is possible — mute three
+and leave one to audition a single gesture cleanly, or mute just the bed-heavy
+chord to hear the seam by itself.
+
+What each mute does:
+
+| Chip | When muted |
+|------|------------|
+| **chord** | silences the held point entirely — both the countable foreground partials and the uncountable bed. (The bed is nested under the chord, so muting the chord mutes the bed with it.) |
+| **seam** | removes the translation-seam layer; the held point keeps sounding, but without the mistuned "own tuning vs. learned tuning" beating underneath. |
+| **shimmer** | freezes navigation — moving the cursor no longer re-voices the point. The held point stays exactly as it was while you move around the map. Useful for keeping one point steady while you read the map. |
+| **distance** | silences the consonance pings; clicking a neighbour name still selects and holds that point, it just doesn't sound the interval. |
+
+Notes:
+
+- Mutes can be set **before** you enable audio. They take effect the moment the
+  audio context is armed.
+- Muting **chord** while leaving **seam** audible is the cleanest way to hear
+  the seam on its own. Muting everything except **shimmer** lets you hear only
+  the bed re-voicing as you navigate.
+- Mutes are independent of the **seam depth** slider: if the seam is unmuted,
+  its loudness still follows the slider; if muted, the slider has no effect
+  until you unmute.
+
+---
+
+## Sliders
+
+| Slider | Effect |
+|--------|--------|
+| **master** | overall output level. |
+| **bed density** | how many of the uncountable bed partials actually sound. Lower = sparser, easier to pick out individual partials; higher = a denser wash you genuinely can't count. Changing it re-voices the held point. |
+| **seam depth** | loudness of the translation-seam, when it isn't muted. Higher makes the mistuning between the clip's own tuning and the space's placement more prominent. |
+
+---
+
+## Transport controls
+
+Below **enable audio** are two buttons:
+
+| Button | Effect |
+|--------|--------|
+| **pause / resume** | suspends the audio clock so the held sound freezes in place, and resumes it exactly where it left off. The button turns amber and reads "resume" while paused. Clicking a point or navigating the map while paused will automatically resume. |
+| **stop** | silences everything and lets go of the held point. The space falls quiet; click a point or navigate to begin sounding again. If you stop while paused, it resumes first so the stop takes effect. |
+
+Both are disabled until you enable audio.
+
+---
+
+## Suggested ways to listen
+
+- **Hear one gesture at a time.** Mute the other three in the gesture mixer.
+  Start by soloing the **seam** (mute chord, shimmer, distance) — it's the
+  subtlest and easiest to miss when everything sounds at once.
+- **Compare sonification types on a fixed point.** Click a point, then cycle
+  additive → granular → spectral. The coordinate doesn't change, only its
+  rendering.
+- **Feel dimensionality.** Push **bed density** to maximum on the additive type
+  and try to count the partials. You're meant to fail — that's the point of the
+  chord-of-many.
+- **Trace similarity.** Click a point, then click down its "nearest" list with
+  **distance** unmuted. Near neighbours sound consonant; the further down the
+  list, the wider and more clashing the interval.
+- **Hold steady while you read.** Mute **shimmer** so navigation doesn't change
+  the sound, then move the cursor freely to inspect the map without re-voicing.
