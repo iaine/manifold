@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>MANIFOLD — Sound Options Guide - Manifold</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Manifold</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">MANIFOLD — a navigable vector space you can hear</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../INSTALLATION/" class="nav-link">INSTALLATION</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./" class="nav-link active" aria-current="page">MANIFOLD — Sound Options Guide</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../INSTALLATION/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#manifold-sound-options-guide" class="nav-link">MANIFOLD — Sound Options Guide</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#quick-start" class="nav-link">Quick start</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#the-four-gestures-and-how-each-is-triggered" class="nav-link">The four gestures, and how each is triggered</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#sonification-type" class="nav-link">Sonification type</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#gesture-mixer-mute-toggles" class="nav-link">Gesture mixer (mute toggles)</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#sliders" class="nav-link">Sliders</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#transport-controls" class="nav-link">Transport controls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#suggested-ways-to-listen" class="nav-link">Suggested ways to listen</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="manifold-sound-options-guide">MANIFOLD — Sound Options Guide</h1>
+<p>This guide covers the controls in the <strong>instrument</strong> panel on the right side of
+the window: how to enable audio, choose a sonification type, mute and unmute
+individual gestures with the gesture mixer, and use the transport controls.</p>
+<p>It assumes the app is already running. If you haven't got it running yet, see
+the main <code>README.md</code> first.</p>
+<hr />
+<h2 id="quick-start">Quick start</h2>
+<ol>
+<li>Click <strong>enable audio</strong> (browsers require one click before any sound can
+   start).</li>
+<li>Click a point on the map. You're now <em>dwelling</em> on it — its sound holds.</li>
+<li>Move the cursor around the map to <em>navigate</em> between points.</li>
+<li>Use the controls below to shape what you hear.</li>
+</ol>
+<hr />
+<h2 id="the-four-gestures-and-how-each-is-triggered">The four gestures, and how each is triggered</h2>
+<p>MANIFOLD doesn't have a single "play" button. Instead, four distinct
+<em>gestures</em> sound in response to what you do. They layer rather than replace one
+another — several can sound at once.</p>
+<table>
+<thead>
+<tr>
+<th>Gesture</th>
+<th>How you trigger it</th>
+<th>What it represents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Chord-of-many</strong></td>
+<td>click a point (and it holds)</td>
+<td>every dimension of the point becomes a partial — a few countable foreground tones over a bed too dense to count</td>
+</tr>
+<tr>
+<td><strong>Translation-seam</strong></td>
+<td>sounds automatically while a point is held</td>
+<td>the tension between the clip's own spectral tuning and where the space places it — epistemic compression made audible</td>
+</tr>
+<tr>
+<td><strong>Projection-shimmer</strong></td>
+<td>move the cursor between points</td>
+<td>the bed re-voices as you navigate, the same point seen from changing angles</td>
+</tr>
+<tr>
+<td><strong>Distance-as-consonance</strong></td>
+<td>click a name in the "nearest by similarity" list</td>
+<td>similarity as harmonic interval — near points consonant, far points clashing</td>
+</tr>
+</tbody>
+</table>
+<p>The important thing: <strong>clicking a point</strong> starts the chord and the seam
+together; <strong>moving the cursor</strong> drives the shimmer; <strong>clicking a neighbour
+name</strong> fires a distance ping. The gesture mixer (below) lets you silence any of
+these so you can hear the others in isolation.</p>
+<hr />
+<h2 id="sonification-type">Sonification type</h2>
+<p>The three-button selector labelled <strong>sonification</strong> changes <em>how</em> every
+dimension of a point is turned into sound. It changes the timbre of the
+chord-of-many; it does not change which gesture is active.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>What you hear</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>additive</strong></td>
+<td>each dimension is a sustained partial — the dense, held chord. The default, and the clearest rendering of "too many dimensions to count."</td>
+</tr>
+<tr>
+<td><strong>granular</strong></td>
+<td>each dimension is a fast retriggering grain — the point becomes a stuttering cloud. Dimensions that define the point more strongly chatter faster.</td>
+</tr>
+<tr>
+<td><strong>spectral</strong></td>
+<td>each dimension is a narrow band of filtered noise — the point becomes a textured resonance rather than a set of pitches. Foreground bands ring clearly; the bed becomes a shimmering wash.</td>
+</tr>
+</tbody>
+</table>
+<p>Switching type <strong>re-voices the point you're currently holding immediately</strong>, so
+you can A/B the same coordinate across all three without re-clicking. The line
+of text beneath the selector describes the current choice.</p>
+<hr />
+<h2 id="gesture-mixer-mute-toggles">Gesture mixer (mute toggles)</h2>
+<p>The <strong>gesture mixer</strong> is a 2×2 grid of four chips: <strong>chord</strong>, <strong>seam</strong>,
+<strong>shimmer</strong>, <strong>distance</strong>. Each one mutes or unmutes its gesture independently.</p>
+<ul>
+<li>A chip that is <strong>lit</strong> (cyan, outlined) means that gesture is <strong>audible</strong>.</li>
+<li>A chip that is <strong>dimmed and struck through</strong> means that gesture is <strong>muted</strong>.</li>
+<li>Tap a chip to toggle it.</li>
+</ul>
+<p>Because the toggles are independent, any combination is possible — mute three
+and leave one to audition a single gesture cleanly, or mute just the bed-heavy
+chord to hear the seam by itself.</p>
+<p>What each mute does:</p>
+<table>
+<thead>
+<tr>
+<th>Chip</th>
+<th>When muted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>chord</strong></td>
+<td>silences the held point entirely — both the countable foreground partials and the uncountable bed. (The bed is nested under the chord, so muting the chord mutes the bed with it.)</td>
+</tr>
+<tr>
+<td><strong>seam</strong></td>
+<td>removes the translation-seam layer; the held point keeps sounding, but without the mistuned "own tuning vs. learned tuning" beating underneath.</td>
+</tr>
+<tr>
+<td><strong>shimmer</strong></td>
+<td>freezes navigation — moving the cursor no longer re-voices the point. The held point stays exactly as it was while you move around the map. Useful for keeping one point steady while you read the map.</td>
+</tr>
+<tr>
+<td><strong>distance</strong></td>
+<td>silences the consonance pings; clicking a neighbour name still selects and holds that point, it just doesn't sound the interval.</td>
+</tr>
+</tbody>
+</table>
+<p>Notes:</p>
+<ul>
+<li>Mutes can be set <strong>before</strong> you enable audio. They take effect the moment the
+  audio context is armed.</li>
+<li>Muting <strong>chord</strong> while leaving <strong>seam</strong> audible is the cleanest way to hear
+  the seam on its own. Muting everything except <strong>shimmer</strong> lets you hear only
+  the bed re-voicing as you navigate.</li>
+<li>Mutes are independent of the <strong>seam depth</strong> slider: if the seam is unmuted,
+  its loudness still follows the slider; if muted, the slider has no effect
+  until you unmute.</li>
+</ul>
+<hr />
+<h2 id="sliders">Sliders</h2>
+<table>
+<thead>
+<tr>
+<th>Slider</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>master</strong></td>
+<td>overall output level.</td>
+</tr>
+<tr>
+<td><strong>bed density</strong></td>
+<td>how many of the uncountable bed partials actually sound. Lower = sparser, easier to pick out individual partials; higher = a denser wash you genuinely can't count. Changing it re-voices the held point.</td>
+</tr>
+<tr>
+<td><strong>seam depth</strong></td>
+<td>loudness of the translation-seam, when it isn't muted. Higher makes the mistuning between the clip's own tuning and the space's placement more prominent.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="transport-controls">Transport controls</h2>
+<p>Below <strong>enable audio</strong> are two buttons:</p>
+<table>
+<thead>
+<tr>
+<th>Button</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>pause / resume</strong></td>
+<td>suspends the audio clock so the held sound freezes in place, and resumes it exactly where it left off. The button turns amber and reads "resume" while paused. Clicking a point or navigating the map while paused will automatically resume.</td>
+</tr>
+<tr>
+<td><strong>stop</strong></td>
+<td>silences everything and lets go of the held point. The space falls quiet; click a point or navigate to begin sounding again. If you stop while paused, it resumes first so the stop takes effect.</td>
+</tr>
+</tbody>
+</table>
+<p>Both are disabled until you enable audio.</p>
+<hr />
+<h2 id="suggested-ways-to-listen">Suggested ways to listen</h2>
+<ul>
+<li><strong>Hear one gesture at a time.</strong> Mute the other three in the gesture mixer.
+  Start by soloing the <strong>seam</strong> (mute chord, shimmer, distance) — it's the
+  subtlest and easiest to miss when everything sounds at once.</li>
+<li><strong>Compare sonification types on a fixed point.</strong> Click a point, then cycle
+  additive → granular → spectral. The coordinate doesn't change, only its
+  rendering.</li>
+<li><strong>Feel dimensionality.</strong> Push <strong>bed density</strong> to maximum on the additive type
+  and try to count the partials. You're meant to fail — that's the point of the
+  chord-of-many.</li>
+<li><strong>Trace similarity.</strong> Click a point, then click down its "nearest" list with
+  <strong>distance</strong> unmuted. Near neighbours sound consonant; the further down the
+  list, the wider and more clashing the interval.</li>
+<li><strong>Hold steady while you read.</strong> Mute <strong>shimmer</strong> so navigation doesn't change
+  the sound, then move the cursor freely to inspect the map without re-voicing.</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
