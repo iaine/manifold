@@ -96,6 +96,27 @@
   .transport button{flex:1}
   button.paused{border-color:var(--amber); color:var(--amber);
      box-shadow:0 0 12px rgba(232,161,60,.2)}
+  .seg{display:flex; border:1px solid var(--ink-faint); border-radius:3px;
+     overflow:hidden}
+  .seg-btn{flex:1; border:0; border-radius:0; padding:8px 4px;
+     background:transparent; color:var(--ink-dim); font-size:10px;
+     letter-spacing:.08em; border-right:1px solid var(--ink-faint)}
+  .seg-btn:last-child{border-right:0}
+  .seg-btn:hover{color:var(--ink); border-color:var(--ink-faint)}
+  .seg-btn.active{background:rgba(95,227,216,.10); color:var(--cyan)}
+  .mode-desc{font-family:var(--mono); font-size:10px; color:var(--ink-faint);
+     letter-spacing:.04em; line-height:1.6; min-height:26px}
+
+  /* gesture mixer: 2x2 grid of mute chips. Lit = audible, dim = muted. */
+  .mixer{display:grid; grid-template-columns:1fr 1fr; gap:6px}
+  .gbtn{font-family:var(--mono); font-size:11px; letter-spacing:.06em;
+     padding:8px 6px; border-radius:3px; cursor:pointer; transition:.12s;
+     background:rgba(95,227,216,.10); color:var(--cyan);
+     border:1px solid rgba(95,227,216,.4)}
+  .gbtn:hover{border-color:var(--cyan)}
+  .gbtn.muted{background:transparent; color:var(--ink-faint);
+     border-color:var(--ink-faint); text-decoration:line-through}
+  .gbtn:disabled{opacity:.4; cursor:default}
 
   #boot{position:absolute; inset:0; z-index:10; display:flex;
      align-items:center; justify-content:center; flex-direction:column;
@@ -154,6 +175,21 @@
 
     <div class="controls">
       <div class="sect-label">instrument</div>
+      <div class="seg" id="mode-seg" role="group" aria-label="sonification type">
+        <button class="seg-btn active" data-mode="additive">additive</button>
+        <button class="seg-btn" data-mode="granular">granular</button>
+        <button class="seg-btn" data-mode="spectral">spectral</button>
+      </div>
+      <div class="mode-desc" id="mode-desc">a sustained partial per dimension — the dense chord</div>
+
+      <div class="sect-label" style="margin-top:6px">gesture mixer</div>
+      <div class="mixer" id="gesture-mixer">
+        <button class="gbtn" data-gesture="chord">chord</button>
+        <button class="gbtn" data-gesture="seam">seam</button>
+        <button class="gbtn" data-gesture="shimmer">shimmer</button>
+        <button class="gbtn" data-gesture="distance">distance</button>
+      </div>
+      <div class="mode-desc" style="margin-top:2px">tap to mute · dimmed = muted</div>
       <div class="row"><span>master</span><input id="vol" type="range" min="0" max="100" value="55"></div>
       <div class="row"><span>bed density</span><input id="bed-density" type="range" min="0" max="100" value="70"></div>
       <div class="row"><span>seam depth</span><input id="seam-depth" type="range" min="0" max="100" value="60"></div>

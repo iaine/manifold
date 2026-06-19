@@ -260,6 +260,36 @@ synth.onResume = () => {
   pauseBtn.classList.remove('paused');
 };
 
+// sonification type selector
+const MODE_DESC = {
+  additive: 'a sustained partial per dimension — the dense chord',
+  granular: 'each dimension a retriggering grain — a stuttering cloud',
+  spectral: 'each dimension a band of filtered noise — a textured resonance',
+};
+const modeSeg = document.getElementById('mode-seg');
+const modeDesc = document.getElementById('mode-desc');
+modeSeg.querySelectorAll('.seg-btn').forEach(btn => {
+  btn.onclick = () => {
+    modeSeg.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const mode = btn.dataset.mode;
+    modeDesc.textContent = MODE_DESC[mode] || '';
+    synth.setMode(mode);   // re-voices the held point if audio is live
+  };
+});
+
+// gesture mixer: independent mute toggles. Each chip starts audible (lit);
+// tapping mutes it (dimmed, struck through). Mutes work before audio is
+// enabled too — they apply as soon as the context is armed.
+const gestureMixer = document.getElementById('gesture-mixer');
+gestureMixer.querySelectorAll('.gbtn').forEach(btn => {
+  btn.onclick = () => {
+    const gesture = btn.dataset.gesture;
+    const isMuted = synth.toggleMuted(gesture);
+    btn.classList.toggle('muted', isMuted);
+  };
+});
+
 /* ---- boot: receive the space from Python ---- */
 function boot(summary) {
   const bootEl = document.getElementById('boot');
